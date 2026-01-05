@@ -24,6 +24,8 @@ while True:
     x = int(input("Введіть координату х, від 0 до 9: "))
     y = int(input("Введіть координату у, від 0 до 9: "))
     
+    ship_destroyed = True
+
     if (x > 9 or x < 0) or (y > 9 or y < 0):
         print("Невірні координати")
         continue
@@ -39,7 +41,12 @@ while True:
     elif board[x][y] == ".":
         print("Промах!")
         board[x][y] = "*"
-                
+        
+    for item in board:
+        for i in range(len(item)):
+            if item[i] == "O":
+                ship_destroyed = False
+    
     for item in board:
         copy = item[:]
         for i in range(len(copy)):
@@ -47,7 +54,16 @@ while True:
                 copy[i] = "."
         print(" ".join(copy))
         
-    result = input("Якщо хочеш зупинитись напиши q або якщо продовжити натисни Enter: ")
-        
-    if result.lower() == "q":
+    if ship_destroyed == True:
+        print("Корабель знищено! Ви перемогли 🎉")
         break
+    while True:          
+        result = input("Enter — продовжити | q — вийти: ")
+        
+        if result == "":
+            break 
+        elif result.lower() == "q":
+            exit()
+        else:
+            print("Незрозуміла дія. Натисни Enter або q")
+            continue

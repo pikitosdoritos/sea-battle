@@ -10,8 +10,15 @@ for i in range(rows):
     
     board.append(row)
     
+board[0][0], board[0][1], board[0][2] = "O", "O", "O"
+
 for item in board:
-    print(" ".join(item))
+    copy = item[:]
+    for i in range(len(copy)):
+        if copy[i] == "O":
+            copy[i] = "."
+    print(" ".join(copy))
+    
     
 while True:
     x = int(input("Введіть координату х, від 0 до 9: "))
@@ -21,14 +28,24 @@ while True:
         print("Невірні координати")
         continue
     
-    if board[x][y] == "X":
+    elif board[x][y] == "X":
         print("По цій клітинці був виконаний постріл")
         continue
     
-    board[x][y] = "X"
-        
+    elif board[x][y] == "O":
+        print("Влучив!")
+        board[x][y] = "X"
+    
+    elif board[x][y] == ".":
+        print("Промах!")
+        board[x][y] = "*"
+                
     for item in board:
-        print(" ".join(item))
+        copy = item[:]
+        for i in range(len(copy)):
+            if copy[i] == "O":
+                copy[i] = "."
+        print(" ".join(copy))
         
     result = input("Якщо хочеш зупинитись напиши q або якщо продовжити натисни Enter: ")
         
